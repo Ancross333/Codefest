@@ -6,7 +6,7 @@ namespace Api.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
-	public class MessagesController
+	public class MessagesController : ControllerBase
 	{
 		private readonly IMediator _mediator;
 
@@ -17,12 +17,12 @@ namespace Api.Controllers
 
 		[HttpGet]
 		[Route("get/$senderId/$receiverId/$oldestMessageId")]
-		public async ActionResult GetMessages(int senderId, int receiverId, int oldestMessageId)
+		public async Task<ActionResult> GetMessages(int senderId, int receiverId, int oldestMessageId)
 		{
 			var cmd = new RetreiveMessagesCommand(senderId, receiverId, oldestMessageId);
 			var data = await _mediator.Send(cmd);
 
-			return 
+			return StatusCode(201, data);
 		}
 	}
 }

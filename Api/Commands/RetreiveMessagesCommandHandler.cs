@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Repos;
 using MediatR;
+using Domain.Message;
 
 namespace Api.Commands
 {
@@ -12,16 +13,21 @@ namespace Api.Commands
 			_repository = repository;
 		}
 
-		public Task<RetreiveMessagesDto> Handle(RetreiveMessagesCommand request, CancellationToken cancellationToken)
+		public async Task<RetreiveMessagesDto> Handle(RetreiveMessagesCommand request, CancellationToken cancellationToken)
 		{
 			ArgumentNullException.ThrowIfNull(request);
 
-			return HandleInternalAsync(request, cancellationToken);
+			return await HandleInternalAsync(request, cancellationToken);
 		}
 
-		private Task<RetreiveMessagesDto> HandleInternalAsync(RetreiveMessagesCommand request, CancellationToken cancellationToken)
+		private async Task<RetreiveMessagesDto> HandleInternalAsync(RetreiveMessagesCommand request, CancellationToken cancellationToken)
 		{
+			List<Message> messages = _repository.Get(request.SenderId, request.ReceiverId, request.OldestMessageId);
 
+			return new RetreiveMessagesDto()
+			{
+				Messages = messages
+			};
 		}
 	}
 }

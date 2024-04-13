@@ -2,6 +2,7 @@
 using Db;
 using Domain.Interfaces;
 using Domain.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repos
 {
@@ -22,5 +23,10 @@ namespace Infrastructure.Repos
 		{
 			await _dbContext.SaveChangesAsync();
 		}
+
+		public async Task<User> GetAsync(string email, string password)
+		{
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+        }
 	}
 }

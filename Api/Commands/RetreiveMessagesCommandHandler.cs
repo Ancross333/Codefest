@@ -1,14 +1,15 @@
 ﻿using Infrastructure.Repos;
 using MediatR;
 using Domain.Message;
+using Domain.Interfaces;
 
 namespace Api.Commands
 {
 	public class RetreiveMessagesCommandHandler : IRequestHandler<RetreiveMessagesCommand, RetreiveMessagesDto>
 	{
-		private readonly MessagesRepository _repository;
+		private readonly IMessagesRepository _repository;
 
-		public RetreiveMessagesCommandHandler(MessagesRepository repository)
+		public RetreiveMessagesCommandHandler(IMessagesRepository repository)
 		{
 			_repository = repository;
 		}

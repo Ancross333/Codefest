@@ -1,5 +1,6 @@
 
 using Db;
+using Domain.Follow;
 using Domain.Interfaces;
 
 namespace Infrastructure.Repos
@@ -13,5 +14,14 @@ namespace Infrastructure.Repos
 			_dbContext = dbContext;
 		}
 
+		public async Task AddAsync(Follow follow)
+		{
+			await _dbContext.Follows.AddAsync(follow);
+		}
+
+		public async Task SaveChangesAsync()
+		{
+			await _dbContext.SaveChangesAsync();
+		}
 	}
 }

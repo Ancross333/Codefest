@@ -3,16 +3,19 @@ using Domain.User;
 using Domain.Values;
 using MediatR;
 using Common;
+using Infrastructure.Repos;
 
 namespace Api.Commands
 {
 	public class AddUserCommandHandler : IRequestHandler<AddUserCommand, AddUserDto>
 	{
-		private readonly IUserRepository _repository;
+		private readonly IUserRepository _userRepository;
+		private readonly IValuesRepository _valuesRepository;
 
-		public AddUserCommandHandler(IUserRepository repository)
+		public AddUserCommandHandler(IUserRepository userRepository, IValuesRepository valuesRepository)
 		{
-			_repository = repository;
+			_userRepository = userRepository;
+			_valuesRepository = valuesRepository;
 		}
 
 		public async Task<AddUserDto> Handle(AddUserCommand request, CancellationToken cancellationToken)
@@ -25,16 +28,17 @@ namespace Api.Commands
 		private async Task<AddUserDto> HandleInternalAsync(AddUserCommand request, CancellationToken cancellationToken)
 		{
 			var newPassword = PasswordUtils.HashPassword(request.Password);
-			User user = new(request.Email, request.Password, request.CompanyName,
+			User user = new(request.Email, newPassword, request.CompanyName,
 				request.FirstName, request.LastName, request.Zip, request.AccountType, request.ProfilePicture);
 
-			await _repository.AddAsync(user);
-			await _repository.SaveChangesAsync();
+			await _valuesRepository.AddAsync(request.Values, user.Id);
+			await _userRepository.AddAsync(user);
+			await _userRepository.SaveChangesAsync();
 
 			return new AddUserDto()
 			{
 				UserId = user.Id
-		};
+			};
 		}
 	}
 }

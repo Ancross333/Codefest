@@ -14,12 +14,17 @@ namespace Infrastructure.Repos
 			_dbContext = dbContext;
 		}
 
-		public List<Message> Get(int senderId, int receiverId, int oldestMessageId)
+		public List<Message> GetMessages(int senderId, int receiverId, int oldestMessageId)
 		{
 			return _dbContext.Messages.AsParallel().OrderByDescending(m => m.Id)
 				.Where(m => IsValidMessage(m, senderId, receiverId, oldestMessageId))
 				.Take(MaxMessagesRetreivedInQuery).OrderBy(m => m.Id).ToList();
 		}
+
+		//public List<Conversation> GetConversations(int userId)
+		//{
+		//	return _dbContext.Messages.AsParallel().
+		//}
 
 		private static bool IsValidMessage(Message message, int senderId, int receiverId, int oldestMessageId)
 		{

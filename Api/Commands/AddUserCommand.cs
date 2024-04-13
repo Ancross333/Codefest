@@ -14,9 +14,10 @@ namespace Api.Commands
 		public Zip Zip { get; set; }
 		public AccountType AccountType { get; set; }
 		public List<Values> Values { get; set; }
+		public ProfilePicture ProfilePicture {  get; set; }
 
 		public AddUserCommand(string email, string password, string? companyName, 
-			string firstName, string lastName, Zip zip, AccountType accountType, List<Values> values)
+			string firstName, string lastName, Zip zip, AccountType accountType, List<Values> values, ProfilePicture profilePicture)
 		{
 			Email = email;
 			Password = password;
@@ -26,6 +27,7 @@ namespace Api.Commands
 			Zip = zip;
 			AccountType = accountType;
 			Values = values;
+			ProfilePicture = profilePicture;
 		}
 	}
 

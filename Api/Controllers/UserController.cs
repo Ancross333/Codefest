@@ -48,6 +48,14 @@ namespace Api.Controllers
 			return Ok(data);
 		}
 
+		[HttpPost]
+		[Route("search")]
+		public async Task<ActionResult> SearchForUsers(SearchRequest request)
+		{
+			var cmd = new SearchCommand(request.Interests, request.Zips);
+			var data = await _mediator.Send(cmd);
 
+			return Ok(data);
+		}
 	}
 }

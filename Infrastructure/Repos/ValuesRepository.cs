@@ -27,5 +27,10 @@ namespace Infrastructure.Repos
 		{
 			await _dbContext.SaveChangesAsync();
 		}
+
+		public List<Interest> GetValues(int userId)
+		{
+			return _dbContext.Values.AsParallel().Where(u => u.Id == userId).Select(u => u.Interest).ToList();
+		}
 	}
 }

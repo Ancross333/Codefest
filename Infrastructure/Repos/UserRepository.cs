@@ -14,6 +14,11 @@ namespace Infrastructure.Repos
 		{
 			_dbContext = dbContext;
 		}
+
+		public async Task<User?> GetAsync(int id)
+		{
+			return _dbContext.Users.AsParallel().Where(u => u.Id == id).FirstOrDefault();
+		}
 		public async Task AddAsync(User user)
 		{
 			await _dbContext.Users.AddAsync(user);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,6 @@ namespace Domain.Interfaces
 	{
 		Task AddAsync(User.User user);
 		Task SaveChangesAsync();
-
-		Task<User.User> GetAsync(string email, string password);
+		Task<User.User?> GetAsync(int id);
 	}
 }

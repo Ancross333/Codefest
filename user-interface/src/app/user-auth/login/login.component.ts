@@ -21,7 +21,6 @@ export class LoginComponent {
     this.store.dispatch(LoginActions.login({email: this.email, password: this.password}))
 
     this.activeUser$.subscribe(data => {
-      console.log(data);
     })
   }
 }

@@ -5,7 +5,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NgFor, NgIf } from '@angular/common';
 import { RegisterActions } from '../ngrx/user.actions';
 import { SelectValuesComponent } from '../templates/select-values/select-values.component';
-import { ZIP_CODES, getIndexByZipCode } from '../common/enum-conversions';
+import { CATEGORY_NAMES, ZIP_CODES, getIndexByZipCode } from '../common/enum-conversions';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +17,7 @@ import { ZIP_CODES, getIndexByZipCode } from '../common/enum-conversions';
 export class RegisterComponent {
 
   public zipCodes = ZIP_CODES;
+  public values = CATEGORY_NAMES;
 
   public email: string = "";
   public password: string = "";
@@ -26,10 +27,12 @@ export class RegisterComponent {
   public lastName: string = "";
   public zip: string = "";
   public accountType: number = 0;
+  public valuesList: number[] = [];
   public errorMessage: string = "";
   constructor(private store: Store, private dialog: MatDialog) {}
 
   public register(): void {
+    event?.preventDefault();
     if(!validateEmail(this.email)){
       alert("Email is invalid");
       return;
@@ -61,6 +64,9 @@ export class RegisterComponent {
       alert("Select a zip code")
     }
 
+    if(!(this.valuesList.length > 0)){
+      alert("You must select at least one value")
+    }
 
     const request = {
       email: this.email,
@@ -69,19 +75,36 @@ export class RegisterComponent {
       firstName: this.firstName,
       lastName: this.lastName,
       zipCode: getIndexByZipCode(this.zip),
-      accountType: Number(this.accountType)
+      accountType: Number(this.accountType),
+      values: this.valuesList
     }
 
-    console.log(request)
     this.store.dispatch(RegisterActions.register(request))
   }
 
-  public selectValues(): void{
-    this.dialog.open(SelectValuesComponent);
+  public selectValues(): void {
+    const dialogRef = this.dialog.open(SelectValuesComponent, {
+      width: '250px',
+      data: { values: this.values } 
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.valuesList = result;
+      }
+    });
   }
 }
 
 function validateEmail(email: string): boolean {
   const emailPattern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailPattern.test(email);
+}
+
+function addValue(){
+
+}
+
+function removeValue(){
+
 }

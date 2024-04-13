@@ -26,5 +26,17 @@ namespace Api.Controllers
 
 			return StatusCode(201, data);
 		}
+
+		[HttpPost]
+		[Route("login")]
+		public async Task<ActionResult> Login(LoginRequest request)
+		{
+            var cmd = new LoginCommand(request.Email, request.Password);
+            var data = await _mediator.Send(cmd);
+
+            return Ok(data);
+        }
+
+
 	}
 }

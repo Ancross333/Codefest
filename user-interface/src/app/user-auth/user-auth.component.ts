@@ -3,6 +3,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
+
 @Component({
   selector: 'app-user-auth',
   standalone: true,

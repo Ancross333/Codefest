@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, exhaustMap, map } from "rxjs/operators";
-import { UserService } from "./user.service";
 import { LoginActions, RegisterActions } from "./user.actions";
 import { LoginResponse, RegisterResponse } from "../common/api-responses";
+import { UserService } from "./user.service";
 
 @Injectable()
 export class UserEffects {

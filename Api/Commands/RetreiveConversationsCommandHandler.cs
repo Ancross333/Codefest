@@ -1,4 +1,5 @@
 ﻿using Domain.Interfaces;
+using Domain.Message;
 using MediatR;
 
 namespace Api.Commands
@@ -12,14 +13,20 @@ namespace Api.Commands
 		{
 			_repository = repository;
 		}
-		public Task<RetreiveConversationsDto> Handle(RetreiveConversationsCommand request, CancellationToken cancellationToken)
+		public async Task<RetreiveConversationsDto> Handle(RetreiveConversationsCommand request, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			ArgumentNullException.ThrowIfNull(request);
+
+			return await HandleInternalAsync(request, cancellationToken);
 		}
 
-		public Task<RetreiveConversationsDto> HandleInternalAsync(RetreiveConversationsCommand request, CancellationToken cancellationToken)
+		public async Task<RetreiveConversationsDto> HandleInternalAsync(RetreiveConversationsCommand request, CancellationToken cancellationToken)
 		{
-			throw new NotImplementedException();
+			List<Conversation> conversations = await _repository.GetConversations(request.UserId);
+
+			return new RetreiveConversationsDto() {
+				Conversations = conversations
+			};
 		}
 	}
 }

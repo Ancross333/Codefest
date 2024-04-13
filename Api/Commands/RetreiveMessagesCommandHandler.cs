@@ -23,7 +23,7 @@ namespace Api.Commands
 
 		private async Task<RetreiveMessagesDto> HandleInternalAsync(RetreiveMessagesCommand request, CancellationToken cancellationToken)
 		{
-			List<Message> messages = _repository.GetMessages(request.SenderId, request.ReceiverId, request.OldestMessageId);
+			List<Message> messages = await _repository.GetMessages(request.SenderId, request.ReceiverId, request.OldestMessageId);
 
 			return new RetreiveMessagesDto()
 			{

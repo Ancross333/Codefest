@@ -10,5 +10,6 @@ namespace Domain.Interfaces
 	{
 		Task AddAsync(User.User user);
 		Task SaveChangesAsync();
+		Task<User.User?> GetAsync(int id);
 	}
 }

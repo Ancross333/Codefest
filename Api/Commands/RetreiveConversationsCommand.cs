@@ -16,7 +16,7 @@ namespace Api.Commands
 
 	public record RetreiveConversationsDto
 	{
-        List<Conversation> Conversations { get; set; }
+        public List<Conversation> Conversations { get; set; }
 	}
 
 }

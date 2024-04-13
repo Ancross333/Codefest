@@ -27,10 +27,10 @@ namespace Api.Controllers
 		}
 
 		[HttpGet]
-		[Route("getConversations/$senderId/$receiverId")]
-		public async Task<ActionResult> GetConversations(int senderId, int receiverId, int oldestMessageId)
+		[Route("getConversations/$userId")]
+		public async Task<ActionResult> GetConversations(int userId)
 		{
-			var cmd = new RetreiveMessagesCommand(senderId, receiverId, oldestMessageId);
+			var cmd = new RetreiveConversationsCommand(userId);
 			var data = await _mediator.Send(cmd);
 
 			return Ok(data);

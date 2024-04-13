@@ -1,0 +1,48 @@
+.formContainer button {
+    padding: 10px 20px;
+    margin: 0 5px; /* Adjust as necessary */
+    border: none;
+    background-color: #E003CA;
+    color: white;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.formContainer {
+    max-width: 30vw;
+    background-color: white;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonContainer {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: #E003CA;
+    width: 100%;
+    display: flex;
+    justify-content: left; 
+    gap: 10px; 
+}
+
+.formContainer button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #E003CA;
+    color: white;
+    cursor: pointer;
+}
+
+.formContainer button:hover, .formContainer button.active {
+    background-color: #a70096;
+}
+
+.authContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

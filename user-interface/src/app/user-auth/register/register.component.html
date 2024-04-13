@@ -1,0 +1,58 @@
+<form class="form" (submit)="register()">
+    <div class="inputRow">
+      <label for="registerEmailInput">Email: </label>
+      <input required name="email" [(ngModel)]="email" id="registerEmailInput" type="text" />
+    </div>
+    
+    <div class="inputRow">
+      <label for="registerFirstNameInput">First Name: </label>
+      <input required name="firstName" [(ngModel)]="firstName" id="registerFirstNameInput" type="text" />
+    </div>
+
+    <div class="inputRow">
+      <label for="registerLastNameInput">Last Name: </label>
+      <input required name="lastName" [(ngModel)]="lastName" id="registerLastNameInput" type="text" />
+    </div>
+
+    
+    <div class="inputRow">
+      <label for="registerPasswordInput">Password: </label>
+      <input required name="password" [(ngModel)]="password" id="registerPasswordInput" type="password" />
+    </div>
+    
+    <div class="inputRow">
+      <label for="confirmPasswordInput">Confirm Password: </label>
+      <input required name="passwordConfirm" [(ngModel)]="passwordConfirm" id="confirmPasswordInput" type="password" />
+    </div>
+    
+    <div class="inputRow">
+      <label>Account Type:</label>
+      <div>
+        <label for="volunteer">Volunteer</label>
+        <input type="radio" id="volunteer" name="accountType" [(ngModel)]="accountType" value="0" />
+        <label for="company">Company</label>
+        <input type="radio" id="company" name="accountType" [(ngModel)]="accountType" value="1" />
+      </div>
+    </div>
+
+    <div *ngIf="+accountType === 1" class="inputRow">
+      <label for="company">Company Name: </label>
+      <input required name="company" [(ngModel)]="companyName" type="text"/>
+    </div>
+
+    <div class="inputRow">
+        <label style="margin-right: 15px;" for="zipCodeSelect">Choose a ZIP code:</label>
+        <select required id="zipCodeSelect" name="zipCode" [(ngModel)]="zip">
+            <option *ngFor="let zip of zipCodes" [value]="zip">{{zip}}</option>
+        </select>
+    </div>
+
+    <div class="inputRow">
+        <label for="values">Values: </label>
+        <input required (click)="selectValues()" class="select" value="Select" type="button" />
+    </div>
+
+    <div class="button" class="inputRow">
+      <input class="submit" value="Register" type="submit" />
+    </div>
+  </form>

@@ -14,7 +14,7 @@ namespace Db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Server=localhost;Database=localhost;Username=postgres;Password=password");
+            optionsBuilder.UseNpgsql("Server=localhost;Database=DinoNuggies;Username=postgres;Password=password");
             base.OnConfiguring(optionsBuilder);
         }
 

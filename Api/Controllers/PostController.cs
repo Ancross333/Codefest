@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Api.Commands;
 using Api.Requests;
 using Microsoft.AspNetCore.Mvc;

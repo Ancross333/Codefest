@@ -14,5 +14,12 @@ namespace Domain.Post
         public DateTime CreatedAt { get; set; }
         public string Caption { get; set; }
 
+        public Post(int posterId, string title, DateTime createdAt, string caption)
+        {
+            PosterId = posterId;
+            Title = title;
+            CreatedAt = createdAt;
+            Caption = caption;
+        }
     }
 }

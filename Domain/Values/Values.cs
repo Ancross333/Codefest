@@ -11,5 +11,11 @@ namespace Domain.Values
         public int Id { get; set; }
         public int UserId { get; set; }
         public Interest Interest { get; set; }
+
+        public Values(int userId, Interest interest)
+        {
+            UserId = userId;
+            Interest = interest;
+        }
     }
 }

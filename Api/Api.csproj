@@ -7,13 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Requests\**" />
     <Compile Remove="Validators\**" />
-    <Content Remove="Requests\**" />
     <Content Remove="Validators\**" />
-    <EmbeddedResource Remove="Requests\**" />
     <EmbeddedResource Remove="Validators\**" />
-    <None Remove="Requests\**" />
     <None Remove="Validators\**" />
   </ItemGroup>
 

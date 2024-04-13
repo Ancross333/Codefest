@@ -14,7 +14,7 @@ namespace Domain.User
         public string? CompanyName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Zip { get; set; }
+        public Zip Zip { get; set; }
         public AccountType AccountType { get; set; }
         public ProfilePicture ProfilePicture { get; set; }
     }

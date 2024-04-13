@@ -1,1 +1,13 @@
-<p>select-values works!</p>
+<div class="selectValuesContainer">
+    <h3>Select Values</h3>
+    <div *ngFor="let value of values; let i = index">
+      <label>
+        <input type="checkbox"
+               [value]="value"
+               (change)="onCheckboxChange($event, value)"
+               [checked]="selectedValues.includes(i)">
+        {{ value }}
+      </label>
+    </div>
+    <button (click)="confirmSelection()">Confirm Selection</button>
+</div>

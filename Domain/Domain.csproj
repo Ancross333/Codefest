@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Comments\" />
     <Folder Include="Follows\" />
-    <Folder Include="Messages\" />
-    <Folder Include="Posts\" />
-    <Folder Include="Values\" />
+    <Folder Include="Message\" />
   </ItemGroup>
 
 </Project>

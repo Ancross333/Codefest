@@ -30,6 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Requests\" />
+    <Folder Include="Validators\" />
+    
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Validators\" />
   </ItemGroup>
 

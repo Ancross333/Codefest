@@ -10,5 +10,7 @@ namespace Domain.Interfaces
 	public interface IMessagesRepository
 	{
 		List<Message.Message> Get(int senderId, int receiverId, int oldestMessageId);
+		Task AddAsync(Message.Message message);
+		Task SaveChangesAsync();
 	}
 }

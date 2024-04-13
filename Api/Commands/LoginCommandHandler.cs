@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Domain.User;
 using Domain.Interfaces;
+using Common;
 
 namespace Api.Commands
 {
@@ -23,9 +24,22 @@ namespace Api.Commands
         {
             User user = await _repository.GetAsync(request.Email, request.Password);
 
+
+            if(user != null)
+            {
+                if(PasswordUtils.VerifyPassword(user.Password, request.Password))
+                {
+                    return new LoginDto()
+                    {
+                        User = user
+                    };
+                }
+            }
+
+
             return new LoginDto()
             {
-                User = user
+                User = null
             };
         }
     }

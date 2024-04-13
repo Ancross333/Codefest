@@ -46,9 +46,10 @@ namespace Infrastructure.Repos
         }
 
 
-        public async Task UpdateAsync(string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)
+        public async Task UpdateAsync(int id, string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)
 		{
-			var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+			var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+
 
 			if(user != null)
 			{

@@ -50,3 +50,23 @@ export const RegisterActions = createActionGroup({
 }
 
 )
+
+export const SendMessageActions = createActionGroup({
+    source: "[Message] Send Message",
+    events: {
+        sendMessage: props<{
+            senderId: number;
+            receiverId: number;
+            createdAt: Date;
+            content: string;
+        }>(),
+
+        sendMessageError: props<{
+            error: Error
+        }>(),
+
+        sendMessageSuccess: props<{
+            userId: number;
+        }>()
+    }
+});

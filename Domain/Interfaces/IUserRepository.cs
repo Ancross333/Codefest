@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Domain;
 using Domain.User;
+using Domain.Values;
 
 namespace Domain.Interfaces
 {
@@ -17,5 +18,6 @@ namespace Domain.Interfaces
 		Task<User.User> GetAsync(string email, string password);
 		Task UpdateAsync(string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture);
 		Task<User.User?> GetAsync(int id);
+		List<User.User>? Search(List<Interest> interests, List<Zip>? zips);
 	}
 }

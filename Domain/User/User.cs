@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Values;
 
 namespace Domain.User
 {
@@ -17,6 +19,8 @@ namespace Domain.User
         public Zip Zip { get; set; }
         public AccountType AccountType { get; set; }
         public ProfilePicture ProfilePicture { get; set; }
+		[NotMapped]
+		public List<Interest> Values { get; set; }
 
 		public User(string email, string password, string? companyName, string firstName, 
 			string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)

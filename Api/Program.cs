@@ -25,6 +25,17 @@ builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssemblies([Assembly.GetExecutingAssembly()]);
 });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddFluentValidationAutoValidation();
 
@@ -36,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowSpecificOrigin");
 
 app.UseHttpsRedirection();
 

@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, exhaustMap, map } from "rxjs/operators";
-import { UserService } from "./user.service";
 import { LoginActions, RegisterActions } from "./user.actions";
 import { LoginResponse, RegisterResponse } from "../common/api-responses";
+import { UserService } from "./user.service";
 
 @Injectable()
 export class UserEffects {
@@ -20,10 +20,11 @@ export class UserEffects {
                 action.firstName,
                 action.lastName,
                 action.zipCode,
-                action.accountType
+                action.accountType,
+                action.values
             ).pipe(
                 map((response: RegisterResponse) => {
-                
+                    console.log(response)
                 const success = true;
                 return RegisterActions.registerSuccess({succeeded: success, errorMessage: "No Error"});
                     

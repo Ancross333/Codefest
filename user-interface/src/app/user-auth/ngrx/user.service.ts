@@ -10,19 +10,22 @@ import { UpdateProfileRequest } from "../common/large-request-interfaces";
 export class UserService{
     constructor(private httpClient: HttpClient) {}
 
-    public register(email: string, password: string, companyName: string | null, firstName: string, lastName: string, zipCode: number, accountType: number): Observable<RegisterResponse>{
+    public register(email: string, password: string, companyName: string | null, firstName: string, lastName: string, zipCode: number, accountType: number, values: number[]): Observable<RegisterResponse>{
 
         const requestBody = {
-            email: email,
-            password: password,
-            companyName: companyName,
-            firstName: firstName,
-            lastName: lastName,
-            zipCode: zipCode,
-            accountType: accountType
+            Email: email,
+            Password: password,
+            CompanyName: companyName,
+            FirstName: firstName,
+            LastName: lastName,
+            Zip: zipCode,
+            AccountType: accountType,
+            Values: values,
+            ProfilePicture: Math.floor(Math.random() * 5)
         }
-
-        return this.httpClient.post<RegisterResponse>("https://localhost:7095/User/Add", requestBody)
+        console.log(requestBody)
+        const data = this.httpClient.post<RegisterResponse>("https://localhost:7100/User/create", requestBody)
+        return data
     }
 
     public login(email: string, password: string){

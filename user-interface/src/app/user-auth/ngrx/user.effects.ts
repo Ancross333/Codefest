@@ -20,10 +20,11 @@ export class UserEffects {
                 action.firstName,
                 action.lastName,
                 action.zipCode,
-                action.accountType
+                action.accountType,
+                action.values
             ).pipe(
                 map((response: RegisterResponse) => {
-                
+                    console.log(response)
                 const success = true;
                 return RegisterActions.registerSuccess({succeeded: success, errorMessage: "No Error"});
                     

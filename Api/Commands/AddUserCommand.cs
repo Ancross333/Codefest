@@ -13,11 +13,11 @@ namespace Api.Commands
 		public string LastName { get; set; }
 		public Zip Zip { get; set; }
 		public AccountType AccountType { get; set; }
-		public List<Values> Values { get; set; }
+		public List<Interest> Values { get; set; }
 		public ProfilePicture ProfilePicture {  get; set; }
 
 		public AddUserCommand(string email, string password, string? companyName, 
-			string firstName, string lastName, Zip zip, AccountType accountType, List<Values> values, ProfilePicture profilePicture)
+			string firstName, string lastName, Zip zip, AccountType accountType, List<Interest> values, ProfilePicture profilePicture)
 		{
 			Email = email;
 			Password = password;

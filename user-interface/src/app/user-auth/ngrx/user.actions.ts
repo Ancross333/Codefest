@@ -30,6 +30,7 @@ export const RegisterActions = createActionGroup({
             lastName: string,
             zipCode: number;
             accountType: number;
+            values: number[];
         }>(),
 
         registerSuccess: props<{

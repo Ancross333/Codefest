@@ -32,6 +32,7 @@ export class RegisterComponent {
   constructor(private store: Store, private dialog: MatDialog) {}
 
   public register(): void {
+    event?.preventDefault();
     if(!validateEmail(this.email)){
       alert("Email is invalid");
       return;
@@ -74,10 +75,10 @@ export class RegisterComponent {
       firstName: this.firstName,
       lastName: this.lastName,
       zipCode: getIndexByZipCode(this.zip),
-      accountType: Number(this.accountType)
+      accountType: Number(this.accountType),
+      values: this.valuesList
     }
 
-    console.log(request)
     this.store.dispatch(RegisterActions.register(request))
   }
 
@@ -90,7 +91,6 @@ export class RegisterComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.valuesList = result;
-        console.log('Selected values:', this.valuesList);
       }
     });
   }

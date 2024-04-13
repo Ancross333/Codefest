@@ -32,7 +32,7 @@ export const getIndexByZipCode = (zipCode: string): number => {
     return index;
 };
 
-export enum Category {
+export enum Values {
     Healthcare,
     Education,
     Environment,
@@ -45,7 +45,7 @@ export enum Category {
     CommunityDevelopment
 }
 
-export const CATEGORY_NAMES: string[] = Object.keys(Category).filter(key => isNaN(Number(key)));
+export const CATEGORY_NAMES: string[] = Object.keys(Values).filter(key => isNaN(Number(key)));
 
 export const getCategoryName = (index: number): string => {
     if (index < 0 || index >= CATEGORY_NAMES.length) {

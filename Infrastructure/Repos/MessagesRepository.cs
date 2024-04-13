@@ -27,5 +27,15 @@ namespace Infrastructure.Repos
 				&& (message.ReceiverId == receiverId || message.ReceiverId == senderId)
 				&& message.Id < oldestMessageId;
 		}
+
+		public async Task AddAsync(Message message)
+		{
+			await _dbContext.Messages.AddAsync(message);
+		}
+
+		public async Task SaveChangesAsync()
+		{
+			await _dbContext.SaveChangesAsync();
+		}
 	}
 }

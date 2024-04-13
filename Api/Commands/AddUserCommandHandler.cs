@@ -2,6 +2,7 @@
 using Domain.User;
 using Domain.Values;
 using MediatR;
+using Common;
 
 namespace Api.Commands
 {
@@ -23,6 +24,7 @@ namespace Api.Commands
 
 		private async Task<AddUserDto> HandleInternalAsync(AddUserCommand request, CancellationToken cancellationToken)
 		{
+			var newPassword = PasswordUtils.HashPassword(request.Password);
 			User user = new(request.Email, request.Password, request.CompanyName,
 				request.FirstName, request.LastName, request.Zip, request.AccountType, request.ProfilePicture);
 

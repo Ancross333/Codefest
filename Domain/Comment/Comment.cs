@@ -13,5 +13,13 @@ namespace Domain.Comment
         public int PostId { get; set; }
         public DateTime CreatedAt { get; set; }
         public string Content { get; set; }
+
+        public Comment(int commenterId, int postId, DateTime createdAt, string content)
+        {
+            CommenterId = commenterId;
+            PostId = postId;
+            CreatedAt = createdAt;
+            Content = content;
+        }
     }
 }

@@ -11,5 +11,11 @@ namespace Domain.Follow
         public int Id { get; set; }
         public int FollowerId { get; set; }
         public int FolloweeId { get; set; }
+
+        public Follow(int followerId, int followeeId)
+        {
+            FollowerId = followerId;
+            FolloweeId = followeeId;
+        }
     }
 }

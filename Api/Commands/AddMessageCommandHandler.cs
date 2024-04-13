@@ -1,4 +1,5 @@
 ﻿using Domain.Interfaces;
+using Domain.Message;
 using MediatR;
 
 namespace Api.Commands
@@ -18,10 +19,17 @@ namespace Api.Commands
 			return await HandleInternalAsync(request, cancellationToken);
 		}
 
-		private Task<AddMessageDto> HandleInternalAsync(AddMessageCommand request, CancellationToken cancellationToken)
+		private async Task<AddMessageDto> HandleInternalAsync(AddMessageCommand request, CancellationToken cancellationToken)
 		{
+			Message message = new(request.SenderId, request.ReceiverId, request.CreatedAt, request.Content);
+			await _repository.AddAsync(message);
+			await _repository.SaveChangesAsync();
 
+			return new AddMessageDto()
+			{
+				MessageId = message.Id
+			};
 		}
 	}
 }
-}
+

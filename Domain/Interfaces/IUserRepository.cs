@@ -8,5 +8,7 @@ namespace Domain.Interfaces
 {
 	public interface IUserRepository
 	{
+		Task AddAsync(User.User user);
+		Task SaveChangesAsync();
 	}
 }

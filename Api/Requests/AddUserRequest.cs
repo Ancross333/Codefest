@@ -12,5 +12,6 @@ namespace Api.Requests
         public Zip Zip { get; set; }
         public AccountType AccountType { get; set; }
         public List<Values> Values { get; set; }
-    }
+		public ProfilePicture ProfilePicture { get; set; }
+	}
 }

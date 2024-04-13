@@ -2,7 +2,7 @@
 
 namespace Db
 {
-    public class DataBaseContext : DbContext
+    public class DinoNuggiesDbContext : DbContext
     {
 
     }

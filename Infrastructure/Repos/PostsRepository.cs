@@ -9,6 +9,7 @@ namespace Infrastructure.Repos
 	{
 
 		private readonly DinoNuggiesDbContext _dbContext;
+		private const int MaxPostsRetrievedInQuery = 10;
 
 		public PostsRepository(DinoNuggiesDbContext dbContext)
 		{

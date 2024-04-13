@@ -16,13 +16,11 @@ namespace Api.Controllers
             _mediator = mediator;
         }
 
-        [Route("GetPosts")]
-        [HttpGet]
-        public async Task<ActionResult> GetPosts(GetPostRequest request)
-        {
+        //[Route("GetPosts")]
+        //[HttpGet]
+        //public async Task<ActionResult> GetPosts(GetPostRequest request)
+        //{
 
-        }
-    }
-    {
+        //}
     }
 }

@@ -1,0 +1,14 @@
+<div class="authContainer">
+    <div class="formContainer">
+        <div class="buttonContainer">
+            <button (click)="showLogin=true" [class.active]="showLogin">Login</button>
+            <button (click)="showLogin=false" [class.active]="!showLogin">Register</button>
+        </div>
+    
+        <app-login *ngIf="showLogin; else registrationForm"></app-login>
+        <ng-template #registrationForm>
+            <app-register></app-register>
+        </ng-template>
+    
+      </div>
+</div>

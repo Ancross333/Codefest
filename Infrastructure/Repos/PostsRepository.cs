@@ -1,7 +1,9 @@
 
+using Domain.Interfaces;
+
 namespace Infrastructure.Repos
 {
-	public class PostsRepository
+	public class PostsRepository : IPostsRepository
 	{
 
 	}

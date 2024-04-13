@@ -1,7 +1,9 @@
 
+using Domain.Interfaces;
+
 namespace Infrastructure.Repos
 {
-	public class ValuesRepository
+	public class ValuesRepository : IValuesRepository
 	{
 
 	}

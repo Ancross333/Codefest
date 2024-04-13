@@ -1,7 +1,9 @@
 
+using Domain.Interfaces;
+
 namespace Infrastructure.Repos
 {
-	public class FollowsRepository
+	public class FollowsRepository : IFollowsRepository
 	{
 
 	}

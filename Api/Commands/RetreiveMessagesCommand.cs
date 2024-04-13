@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Domain.Message;
 
 namespace Api.Commands
 {
@@ -16,9 +17,8 @@ namespace Api.Commands
 		}
 	}
 
-	public class RetreiveMessagesDto
+	public record RetreiveMessagesDto
 	{
-		public RetreiveMessagesDto() { }
 		public List<Message> Messages { get; set; }
 	}
 }

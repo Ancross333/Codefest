@@ -12,8 +12,8 @@ import { selectActiveUser } from '../ngrx/user.feature';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  public email: string = "sky@gmail.com";
-  public password: string = "IamnotascoolasIpretendtobe";
+  public email: string = "";
+  public password: string = "";
   public activeUser$ = this.store.select(selectActiveUser);
   constructor(private store: Store) {}
 

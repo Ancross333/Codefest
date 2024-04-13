@@ -22,11 +22,11 @@ namespace Api.Commands
 
         private async Task<UpdateUserDto> HandleInternalAsync(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            User user = await _repository.UpdateAsync(request.Email, request.CompanyName, request.FirstName, request.LastName, request.Zip, request.AccountType, request.Values, request.ProfilePicture);
+            await _repository.UpdateAsync( request.Id, request.Email, request.CompanyName, request.FirstName, request.LastName, request.Zip, request.AccountType, request.ProfilePicture);
 
             return new UpdateUserDto()
             {
-                User = user
+                //User = new User()
             };
         }
 

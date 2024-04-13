@@ -41,7 +41,7 @@ namespace Api.Controllers
 		[Route("update")]
 		public async Task<ActionResult> UpdateAccount(UpdateUserRequest request)
 		{
-			var cmd = new UpdateUserCommand(request.Email, request.CompanyName, request.FirstName, request.LastName, request.Zip, request.AccountType, request.ProfilePicture);
+			var cmd = new UpdateUserCommand(request.Id, request.Email, request.CompanyName, request.FirstName, request.LastName, request.Zip, request.AccountType, request.ProfilePicture);
 
 			var data = await _mediator.Send(cmd);
 

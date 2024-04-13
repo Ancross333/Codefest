@@ -11,3 +11,7 @@ export interface LoginResponse {
 export interface UpdateResponse {
     userId: number;
 }
+
+export interface SendMessageResponse {
+    userId: number;
+  }

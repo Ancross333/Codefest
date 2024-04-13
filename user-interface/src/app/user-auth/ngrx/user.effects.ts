@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, exhaustMap, map } from "rxjs/operators";
-import { LoginActions, RegisterActions } from "./user.actions";
-import { LoginResponse, RegisterResponse } from "../common/api-responses";
+import { LoginActions, RegisterActions, SendMessageActions } from "./user.actions";
+import { LoginResponse, RegisterResponse, SendMessageResponse } from "../common/api-responses";
 import { UserService } from "./user.service";
+import { MessageService } from "./message.service";
 
 @Injectable()
 export class UserEffects {
-    constructor(private actions$: Actions, private userService: UserService) {}
+    constructor(private actions$: Actions, private userService: UserService, private messageService: MessageService) {}
 
     registerUser$ = createEffect(() => this.actions$.pipe(
         ofType(RegisterActions.register),
@@ -47,4 +48,18 @@ export class UserEffects {
             )
         )
     ))
+
+    sendMessage$ = createEffect(() => this.actions$.pipe(
+        ofType(SendMessageActions.sendMessage),
+        exhaustMap((action: any) => 
+            this.messageService.sendMessage(action.senderId, action.receiverId, action.createdAt, action.content)
+            .pipe(
+                map((response: SendMessageResponse) => {
+                    return SendMessageActions.sendMessageSuccess({userId: response.userId})
+                }),
+                catchError((error) => of(SendMessageActions.sendMessageError({error})))
+            )
+        )
+    ));
+    
 }

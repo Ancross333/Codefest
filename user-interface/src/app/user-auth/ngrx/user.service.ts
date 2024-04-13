@@ -34,7 +34,7 @@ export class UserService{
             password: password
         }
 
-        return this.httpClient.post<LoginResponse>("https://localhost:7100/User/Login", requestBody)
+        return this.httpClient.post<LoginResponse>("https://localhost:7100/User/login", requestBody)
     }
 
     public updateAccount(requestBody: UpdateProfileRequest){

@@ -1,4 +1,5 @@
 
+using Common;
 using Db;
 using Domain.Interfaces;
 using Domain.User;
@@ -30,12 +31,22 @@ namespace Infrastructure.Repos
 			await _dbContext.SaveChangesAsync();
 		}
 
-		public async Task<User> GetAsync(string email, string password)
-		{
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+        public async Task<User> GetAsync(string email, string password)
+        {
+            // Retrieve the user by email only
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            // Verify the password in-memory, if user is found
+            if (user != null && PasswordUtils.VerifyPassword(user.Password, password))
+            {
+                return user;
+            }
+
+            return null;
         }
 
-		public async Task UpdateAsync(string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)
+
+        public async Task UpdateAsync(string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)
 		{
 			var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
 

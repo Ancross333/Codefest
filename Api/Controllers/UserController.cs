@@ -26,5 +26,28 @@ namespace Api.Controllers
 
 			return StatusCode(201, data);
 		}
+
+		[HttpPost]
+		[Route("login")]
+		public async Task<ActionResult> Login(LoginRequest request)
+		{
+            var cmd = new LoginCommand(request.Email, request.Password);
+            var data = await _mediator.Send(cmd);
+
+            return Ok(data);
+        }
+
+		[HttpPost]
+		[Route("update")]
+		public async Task<ActionResult> UpdateAccount(UpdateUserRequest request)
+		{
+			var cmd = new UpdateUserCommand(request.Email, request.CompanyName, request.FirstName, request.LastName, request.Zip, request.AccountType, request.ProfilePicture);
+
+			var data = await _mediator.Send(cmd);
+
+			return Ok(data);
+		}
+
+
 	}
 }

@@ -8,5 +8,7 @@ namespace Domain.Interfaces
 {
 	public interface IFollowsRepository
 	{
+		Task AddAsync(Follow.Follow follow);
+		Task SaveChangesAsync();
 	}
 }

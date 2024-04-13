@@ -32,11 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Validators\" />
-    
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Validators\" />
   </ItemGroup>
 
   <ItemGroup>

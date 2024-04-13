@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Api.Commands;
 using Api.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +16,13 @@ namespace Api.Controllers
             _mediator = mediator;
         }
 
-        //[Route("GetPosts")]
-        //[HttpGet]
-        //public async Task<ActionResult> GetPosts(GetPostRequest request)
-        //{
-
-        //}
+        [HttpGet]
+        [Route("get/$UserId/$StartingPostId")]
+        public async Task<ActionResult> GetPosts(int UserId, int StartingPostId)
+        {
+            var cmd = new RetrievePostsCommand(UserId, StartingPostId);
+            var data = await _mediator.Send(cmd);
+            return StatusCode(201, data);
+        }
     }
 }

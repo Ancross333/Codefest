@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Conversation, Message } from '../../../user-auth/common/state-interfaces';
+import { Conversation, Message, User } from '../../../user-auth/common/state-interfaces';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { GetConversationActions, GetMessageActions, SendMessageActions } from '../../../user-auth/ngrx/user.actions';
 import { Observable } from 'rxjs';
-import { selectAllConversations, selectAllMessages } from '../../../user-auth/ngrx/user.feature';
+import { selectActiveUser, selectAllConversations, selectAllMessages } from '../../../user-auth/ngrx/user.feature';
 
 @Component({
   selector: 'app-messages',
@@ -19,6 +19,7 @@ export class MessagesComponent {
 
   public messages$: Observable<Message[]> | null = null;
   public conversations$: Observable<Conversation[]> | null = null;
+  public activeUser$: Observable<User | null> = this.store.select(selectActiveUser)
 
   ngOnInit(){
     this.messages$ = this.store.select(selectAllMessages)
@@ -31,7 +32,11 @@ export class MessagesComponent {
     // })
 
     this.conversations$ = this.store.select(selectAllConversations);
-    this.store.dispatch(GetConversationActions.getConversations({userId: this.currentUserId}));
+    
+    this.activeUser$.subscribe(user => {
+      this.currentUserId = user!.id
+      this.store.dispatch(GetConversationActions.getConversations({userId: user!.id}));
+    })
     this.conversations$.subscribe(conversations => {
       this.conversations = conversations;
     });
@@ -42,14 +47,22 @@ export class MessagesComponent {
   messages: Message[] = [];
 
   currentUserId: number = 1;
-  otherUserId: number = 2;
+  otherUserId: number = -1;
+  activeConversation: Conversation | null = null;
 
   messageToSend: string = "";
 
   sendMessage(): void{
 
+    let messageId;
+    if(this.messages.length === 0){
+      messageId = Math.floor(Math.random() * 10000000) + 50
+    }
+    else{
+      messageId = this.messages[this.messages.length - 1].id + 1
+    }
     const message = {
-      id: this.messages[this.messages.length - 1].id + 1,
+      id: messageId,
         senderId: this.currentUserId,
         receiverId: this.otherUserId,
         createdAt: new Date(),
@@ -61,10 +74,15 @@ export class MessagesComponent {
   }
 
   
-  changeConversation(id: number){
-    this.store.dispatch(GetMessageActions.getMessages({senderId: this.currentUserId, receiverId: this.otherUserId}))
+  changeConversation(id: number, conversation: Conversation){
+    this.otherUserId = conversation.otherUserId
+    this.store.dispatch(GetMessageActions.getMessages({senderId: this.currentUserId, receiverId: conversation.otherUserId}))
     this.messages$?.subscribe(messages => {
       this.messages = messages
     })
+  }
+
+  setOtherUserId(id: number){
+    this.otherUserId = id;
   }
 }

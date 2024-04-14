@@ -17,4 +17,8 @@ export class NavbarComponent {
     public openSettings(): void {
       this.dialog.open(SettingsComponent)
     }
+
+    public search(): void {
+      
+    }
 }

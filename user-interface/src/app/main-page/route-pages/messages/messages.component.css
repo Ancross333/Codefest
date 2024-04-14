@@ -18,6 +18,11 @@
     overflow: auto; /* Ensures that the container can scroll if content overflows */
 }
 
+.messageList{
+    display: flex;
+    flex-direction: column;
+}
+
 .message{
     color: white;
 }

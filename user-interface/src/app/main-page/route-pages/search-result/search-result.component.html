@@ -1,0 +1,8 @@
+<div class="mainContentContainer">
+    <div class="mainContent">
+        <div class="searchResult" *ngFor="let searchResult of searchResults">
+            <p>{{searchResult.firstName}} {{searchResult.lastName}} {{searchResult.zip}}</p>
+            <button (click)="sendMessage()" class="submit">Send Message</button>
+        </div>
+    </div>
+</div>

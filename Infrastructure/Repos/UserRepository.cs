@@ -17,6 +17,29 @@ namespace Infrastructure.Repos
 			_dbContext = dbContext;
 		}
 
+		public List<User>? Search(List<Interest> interests, List<Zip>? zips)
+		{
+			List<User>? result = new();
+			foreach (Interest interest in interests)
+			{
+				List<Values> resultsByInterest = _dbContext.Values.AsParallel().Where(v =>
+				{
+					return v.Interest == interest;
+				}).Distinct().ToList();
+				resultsByInterest.Select(async v =>
+				{
+					int id = v.UserId;
+					User? user = await GetAsync(id);
+					if (user is not null)
+					{
+						result.Add(user);
+					}
+					return v;
+				});
+			}
+			return result;
+		}
+
 		public async Task<User?> GetAsync(int id)
 		{
 			return _dbContext.Users.AsParallel().Where(u => u.Id == id).FirstOrDefault();
@@ -46,46 +69,47 @@ namespace Infrastructure.Repos
         }
 
 
-        public async Task UpdateAsync(string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)
+        public async Task UpdateAsync(int id, string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)
 		{
-			var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+			var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+
 
 			if(user != null)
 			{
-				if(email != null)
+				if (email != null)
 				{
-                    user.Email = email;
-                }
+					user.Email = email;
+				}
 
-				if(companyName != null)
+				if (companyName != null)
 				{
-                    user.CompanyName = companyName;
-                }
+					user.CompanyName = companyName;
+				}
 
-				if(firstName != null)
+				if (firstName != null)
 				{
 					user.FirstName = firstName;
 				}
 
-				if(lastName != null)
+				if (lastName != null)
 				{
-                    user.LastName = lastName;
-                }
+					user.LastName = lastName;
+				}
 
-				if(zip != user.Zip)
+				if (zip != user.Zip)
 				{
-                    user.Zip = zip;
-                }
+					user.Zip = zip;
+				}
 
-				if(accountType != user.AccountType)
+				if (accountType != user.AccountType)
 				{
-                    user.AccountType = accountType;
-                }
+					user.AccountType = accountType;
+				}
 
-				if(profilePicture != user.ProfilePicture)
+				if (profilePicture != user.ProfilePicture)
 				{
-                    user.ProfilePicture = profilePicture;
-                }
+					user.ProfilePicture = profilePicture;
+				}
 
 				await _dbContext.SaveChangesAsync();
 			}

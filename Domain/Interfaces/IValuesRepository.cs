@@ -11,5 +11,6 @@ namespace Domain.Interfaces
 	{
 		Task AddAsync(List<Interest> values, int userId);
 		Task SaveChangesAsync();
+		List<Interest> GetValues(int userId);
 	}
 }

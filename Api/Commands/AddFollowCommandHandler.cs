@@ -24,6 +24,7 @@ namespace Api.Commands
 			Follow follow = new(request.FollowerId, request.FolloweeId);
 
 			await _repository.AddAsync(follow);
+			await _repository.SaveChangesAsync();
 
 			return new AddFollowDto()
 			{

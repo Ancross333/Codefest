@@ -15,9 +15,10 @@ namespace Domain.Interfaces
 		Task AddAsync(User.User user);
 		Task SaveChangesAsync();
 
-		Task<User.User> GetAsync(string email, string password);
+		Task<User.User?> GetAsync(string email, string password);
 		Task UpdateAsync(int id, string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture);
 		Task<User.User?> GetAsync(int id);
 		List<User.User>? Search(List<Interest> interests, List<Zip>? zips);
+		bool EmailExists(string email);
 	}
 }

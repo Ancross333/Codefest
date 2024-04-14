@@ -18,6 +18,26 @@ namespace Api.Commands
 
 	public record SearchDto
 	{
-		public List<User>? Results { get; set; }
+		public List<SearchResult>? Results { get; set; }
+	}
+
+	public record SearchResult
+	{
+		public int UserId { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public ProfilePicture ProfilePicture { get; set; }
+		public List<Interest>? Values { get; set; }
+		public Zip Zip { get; set; }
+
+		public SearchResult(int userId, string firstName, string lastName, ProfilePicture profilePicture, List<Interest>? values, Zip zip)
+		{
+			UserId = userId;
+			FirstName = firstName;
+			LastName = lastName;
+			ProfilePicture = profilePicture;
+			Values = values;
+			Zip = zip;
+		}
 	}
 }

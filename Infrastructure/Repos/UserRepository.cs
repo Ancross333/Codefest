@@ -20,6 +20,7 @@ namespace Infrastructure.Repos
 		public List<User>? Search(List<Interest> interests, List<Zip>? zips)
 		{
 			List<User>? result = new();
+			User? user = null;
 			foreach (Interest interest in interests)
 			{
 				List<Values> resultsByInterest = _dbContext.Values.AsParallel().Where(v =>
@@ -29,20 +30,20 @@ namespace Infrastructure.Repos
 				resultsByInterest.Select(async v =>
 				{
 					int id = v.UserId;
-					User? user = await GetAsync(id);
+					user = await GetAsync(id);
 					if (user is not null)
 					{
 						result.Add(user);
 					}
 					return v;
-				});
+				}).ToList();
 			}
 			return result;
 		}
 
 		public async Task<User?> GetAsync(int id)
 		{
-			return _dbContext.Users.AsParallel().Where(u => u.Id == id).FirstOrDefault();
+			return _dbContext.Users.Where(u => u.Id == id).FirstOrDefault();
 		}
 		public async Task AddAsync(User user)
 		{

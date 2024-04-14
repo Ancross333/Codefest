@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using MediatR;
 using Domain.User;
+using Domain.Values;
 
 namespace Api.Commands
 {
@@ -25,9 +26,16 @@ namespace Api.Commands
 		{
 			List<User>? users = _userRepository.Search(request.Interests, request.Zips);
 
+			List<SearchResult>? result = new();
+			foreach (User user in users)
+			{
+				List<Interest> interests = _valuesRepository.GetValues(user.Id);
+				result.Add(new SearchResult(user.Id, user.FirstName, user.LastName, user.ProfilePicture, interests, user.Zip));
+			}
+
 			return new SearchDto()
 			{
-				Results = users
+				Results = result
 			};
 		}
 	}

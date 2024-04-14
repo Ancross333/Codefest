@@ -23,3 +23,7 @@ export interface GetMessagesResponse {
 export interface RetrieveConversationsResponse {
     conversations: Conversation[]
 }
+
+export interface SearchResultResponse {
+    
+}

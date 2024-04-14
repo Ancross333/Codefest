@@ -36,3 +36,12 @@ export interface User {
      firstName: string;
      lastName: string;
  }
+
+ export interface SearchResult {
+    userId: number;
+    firstName: string;
+    lastName: string;
+    profilePicture: number;
+    values: number[] | null;
+    zip: number;
+ }

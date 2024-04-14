@@ -11,8 +11,8 @@ export interface AuthState {
 }
 
 export const initialAuthState: AuthState = {
-  user: {id: 1, email: "email", firstName: "", lastName: "", accountType: 0, zipCode: 0, companyName: null}
-    ,// user: null,
+//   user: {id: 1, email: "email", firstName: "", lastName: "", accountType: 0, zipCode: 0, companyName: null}
+user: null,
   loginError: null,
   registerSuccess: false,
   registerMessage: '',
@@ -20,7 +20,7 @@ export const initialAuthState: AuthState = {
 };
 
 export interface MessagesState {
-    messages: any[];  // Specify the message type if you have a defined interface
+    messages: any[];  
     error: Error | null;
     loading: boolean;
   }

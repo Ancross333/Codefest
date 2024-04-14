@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { Conversation, Message } from '../../../user-auth/common/state-interfaces';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { SendMessageActions } from '../../../user-auth/ngrx/user.actions';
+import { GetMessageActions, SendMessageActions } from '../../../user-auth/ngrx/user.actions';
+import { Observable } from 'rxjs';
+import { selectAllMessages } from '../../../user-auth/ngrx/user.feature';
 
 @Component({
   selector: 'app-messages',
@@ -14,6 +17,16 @@ import { SendMessageActions } from '../../../user-auth/ngrx/user.actions';
 })
 export class MessagesComponent {
 
+  public messages$: Observable<Message[]> | null = null;
+  ngOnInit(){
+    this.messages$ = this.store.select(selectAllMessages)
+
+    this.store.dispatch(GetMessageActions.getMessages({senderId: this.currentUserId, receiverId: this.otherUserId}))
+    this.messages$.subscribe(messages => {
+      console.log(messages)
+      this.messages = messages;
+    })
+  }
   constructor(private store: Store) {}
    conversations: Conversation[] = [
     {
@@ -48,43 +61,7 @@ export class MessagesComponent {
     }
   ];
 
-  messages: Message[] = [
-    {
-        id: 1,
-        senderId: 1,
-        receiverId: 2,
-        createdAt: new Date('2024-04-13T09:00:00Z'),
-        content: "Hey Bob, how's it going?"
-    },
-    {
-        id: 2,
-        senderId: 2,
-        receiverId: 1,
-        createdAt: new Date('2024-04-13T09:05:00Z'),
-        content: "Hi Alice, doing well! How about you?"
-    },
-    {
-        id: 3,
-        senderId: 1,
-        receiverId: 2,
-        createdAt: new Date('2024-04-13T09:10:00Z'),
-        content: "I'm good, just busy with a new project. Have you heard about the new tech meetup?"
-    },
-    {
-        id: 4,
-        senderId: 2,
-        receiverId: 1,
-        createdAt: new Date('2024-04-13T09:15:00Z'),
-        content: "Yes, I'm planning to go. Are you?"
-    },
-    {
-        id: 5,
-        senderId: 1,
-        receiverId: 2,
-        createdAt: new Date('2024-04-13T09:20:00Z'),
-        content: "Definitely, it sounds like a great opportunity to learn more. Let's meet up there."
-    }
-];
+  messages: Message[] = [];
 
   currentUserId: number = 1;
   otherUserId: number = 2;
@@ -101,7 +78,9 @@ export class MessagesComponent {
         content: this.messageToSend
     }
 
-    this.messages.push(message)
+    console.log(message)
+    //this.messages.push(message)
+    console.log("This happened after the error")
     this.store.dispatch(SendMessageActions.sendMessage({senderId: message.senderId, receiverId: message.receiverId, createdAt: message.createdAt, content: message.content}))
     this.messageToSend = ""
   }

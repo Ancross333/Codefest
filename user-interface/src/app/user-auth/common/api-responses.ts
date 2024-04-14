@@ -1,4 +1,4 @@
-import { User } from "./state-interfaces";
+import { Conversation, Message, User } from "./state-interfaces";
 
 export interface RegisterResponse {
     userId: number;
@@ -14,4 +14,12 @@ export interface UpdateResponse {
 
 export interface SendMessageResponse {
     userId: number;
-  }
+}
+
+export interface GetMessagesResponse {
+    messages: Message[]
+}
+
+export interface RetrieveConversationsResponse {
+    conversations: Conversation[]
+}

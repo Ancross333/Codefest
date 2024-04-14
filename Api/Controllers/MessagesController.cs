@@ -17,8 +17,8 @@ namespace Api.Controllers
 		}
 
 		[HttpGet]
-		[Route("getMessages/$senderId/$receiverId/$oldestMessageId")]
-		public async Task<ActionResult> GetMessages(int senderId, int receiverId, int oldestMessageId)
+		[Route("getMessages/{senderId}/{receiverId}/{oldestMessageId}")]
+		public async Task<ActionResult> GetMessages([FromRoute] int senderId, [FromRoute] int receiverId, [FromRoute] int oldestMessageId)
 		{
 			var cmd = new RetreiveMessagesCommand(senderId, receiverId, oldestMessageId);
 			var data = await _mediator.Send(cmd);

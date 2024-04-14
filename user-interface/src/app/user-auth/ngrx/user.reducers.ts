@@ -11,7 +11,8 @@ export interface AuthState {
 }
 
 export const initialAuthState: AuthState = {
-  user: null,
+//   user: {id: 0, email: "email", firstName: "", lastName: "", accountType: 0, zipCode: 0, companyName: null}
+    user: null,
   loginError: null,
   registerSuccess: false,
   registerMessage: '',

@@ -1,0 +1,18 @@
+.navbar{
+    padding: 5px;
+    background-color: #E003CA;;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.rightNav{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}

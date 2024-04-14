@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  imagePath = 'assets/profile_photos/patrick_profile.jpeg';
+  joshuaImagePath = 'assets/profile_photos/joshua_profile.jpeg';
+  sergeiImagePath = 'assets/profile_photos/sergei_profile.jpg';
 }

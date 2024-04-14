@@ -1,5 +1,5 @@
 import { createAction, createActionGroup, props } from "@ngrx/store";
-import { User } from "../common/state-interfaces";
+import { Conversation, Message, User } from "../common/state-interfaces";
 
 export const LoginActions = createActionGroup({
     source: "[Login] Login",
@@ -66,7 +66,42 @@ export const SendMessageActions = createActionGroup({
         }>(),
 
         sendMessageSuccess: props<{
-            userId: number;
+            message: Message;
         }>()
     }
 });
+
+export const GetMessageActions = createActionGroup({
+    source: "[Message] Get Messages",
+    events: {
+        getMessages: props<{
+            senderId: number;
+            receiverId: number;
+        }>(),
+
+        getMessagesSuccess: props<{
+            messages: Message[]
+        }>(),
+
+        getMessagesError: props<{
+            error: Error
+        }>()
+    }
+})
+
+export const GetConversationActions = createActionGroup({
+    source: "[Message] Get Messages",
+    events: {
+        getConversations: props<{
+            userId: number
+        }>(),
+
+        getConversationsSuccess: props<{
+            conversations: Conversation[]
+        }>(),
+
+        getConversationsError: props<{
+            error: Error
+        }>()
+    }
+})

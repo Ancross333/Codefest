@@ -8,8 +8,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { rootReducer } from './user-auth/common/rootReducer';
 import { UserEffects } from './user-auth/ngrx/user.effects';
 import { provideHttpClient } from '@angular/common/http';
-import { userReducer } from './user-auth/ngrx/user.reducers';
+import { conversationsReducer, messagesReducer, userReducer } from './user-auth/ngrx/user.reducers';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideStore({reducer: rootReducer}), provideEffects(UserEffects), provideHttpClient(), provideAnimationsAsync(), provideState({name: 'users', reducer: userReducer}) ]
+  providers: [provideRouter(routes), provideStore({reducer: rootReducer}), provideEffects(UserEffects), provideHttpClient(), provideAnimationsAsync(), provideState({name: 'users', reducer: userReducer}), provideState({name: 'messages', reducer: messagesReducer}), provideState({name: 'conversations', reducer: conversationsReducer}) ]
 };

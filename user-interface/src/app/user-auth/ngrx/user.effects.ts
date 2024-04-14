@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, exhaustMap, map } from "rxjs/operators";
-import { LoginActions, RegisterActions, SendMessageActions } from "./user.actions";
-import { LoginResponse, RegisterResponse, SendMessageResponse } from "../common/api-responses";
+import { GetConversationActions, GetMessageActions, LoginActions, RegisterActions, SendMessageActions } from "./user.actions";
+import { GetMessagesResponse, LoginResponse, RegisterResponse, SendMessageResponse } from "../common/api-responses";
 import { UserService } from "./user.service";
 import { MessageService } from "./message.service";
 
@@ -55,9 +55,34 @@ export class UserEffects {
             this.messageService.sendMessage(action.senderId, action.receiverId, action.createdAt, action.content)
             .pipe(
                 map((response: SendMessageResponse) => {
-                    return SendMessageActions.sendMessageSuccess({userId: response.userId})
+                    return SendMessageActions.sendMessageSuccess({message: {
+                        senderId: action.senderId, receiverId: action.receiverId, createdAt: action.createdAt, content: action.content,
+                        id: 0
+                    }})
                 }),
                 catchError((error) => of(SendMessageActions.sendMessageError({error})))
+            )
+        )
+    ));
+
+    getMessages$ = createEffect(() => this.actions$.pipe(
+        ofType(GetMessageActions.getMessages),
+        exhaustMap((action: any) => 
+            this.messageService.retrieveMessages(action.senderId, action.receiverId).pipe(
+                map((response: GetMessagesResponse) => {
+                    return GetMessageActions.getMessagesSuccess({messages: response.messages});
+                }),
+                catchError((error) => of(GetMessageActions.getMessagesError({error: error})))
+            )
+        )
+    ));
+    
+    getConversations$ = createEffect(() => this.actions$.pipe(
+        ofType(GetConversationActions.getConversations),
+        exhaustMap((action) =>
+            this.messageService.retrieveConversations(action.userId).pipe(
+                map((response) => GetConversationActions.getConversationsSuccess({ conversations: response.conversations })),
+                catchError((error) => of(GetConversationActions.getConversationsError({ error: error })))
             )
         )
     ));

@@ -3,14 +3,14 @@
   <div class="conversationsContainer">
     <div *ngFor="let conversation of conversations">
         <img />
-        <p>{{conversation.firstName}} {{conversation.lastName}}</p>
+        <p (click)="changeConversation(conversation.otherUserId)" >{{conversation.firstName}} {{conversation.lastName}}</p>
     </div>
   </div>
   
   <div class="messagesContainer">
     <div class="message" *ngFor="let message of messages" 
          [ngClass]="{'sender': message.senderId === currentUserId, 'receiver': message.senderId !== currentUserId}">
-      <p>{{message.content}}</p>
+      <p >{{message.content}}</p>
     </div>
 
     <input [(ngModel)]="messageToSend" type="text" placeholder="Enter a message..." (keyup.enter)="sendMessage()" />

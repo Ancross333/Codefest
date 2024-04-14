@@ -23,7 +23,6 @@ export class UserService{
             Values: values,
             ProfilePicture: Math.floor(Math.random() * 5)
         }
-        console.log(requestBody)
         const data = this.httpClient.post<RegisterResponse>("https://localhost:7100/User/create", requestBody)
         return data
     }

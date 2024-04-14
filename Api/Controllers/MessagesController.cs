@@ -27,7 +27,7 @@ namespace Api.Controllers
 		}
 
 		[HttpGet]
-		[Route("getConversations/$userId")]
+		[Route("getConversations/{userId}")]
 		public async Task<ActionResult> GetConversations(int userId)
 		{
 			var cmd = new RetreiveConversationsCommand(userId);

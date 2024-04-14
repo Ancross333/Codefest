@@ -4,9 +4,9 @@ import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { GetMessageActions, SendMessageActions } from '../../../user-auth/ngrx/user.actions';
+import { GetConversationActions, GetMessageActions, SendMessageActions } from '../../../user-auth/ngrx/user.actions';
 import { Observable } from 'rxjs';
-import { selectAllMessages } from '../../../user-auth/ngrx/user.feature';
+import { selectAllConversations, selectAllMessages } from '../../../user-auth/ngrx/user.feature';
 
 @Component({
   selector: 'app-messages',
@@ -18,49 +18,27 @@ import { selectAllMessages } from '../../../user-auth/ngrx/user.feature';
 export class MessagesComponent {
 
   public messages$: Observable<Message[]> | null = null;
+  public conversations$: Observable<Conversation[]> | null = null;
+
   ngOnInit(){
     this.messages$ = this.store.select(selectAllMessages)
+    
 
-    this.store.dispatch(GetMessageActions.getMessages({senderId: this.currentUserId, receiverId: this.otherUserId}))
-    this.messages$.subscribe(messages => {
-      console.log(messages)
-      this.messages = messages;
-    })
+    // this.store.dispatch(GetMessageActions.getMessages({senderId: this.currentUserId, receiverId: this.otherUserId}))
+    // this.messages$.subscribe(messages => {
+    //   console.log(messages)
+    //   this.messages = messages;
+    // })
+
+    this.conversations$ = this.store.select(selectAllConversations);
+    this.store.dispatch(GetConversationActions.getConversations({userId: this.currentUserId}));
+    this.conversations$.subscribe(conversations => {
+      this.conversations = conversations;
+    });
   }
   constructor(private store: Store) {}
-   conversations: Conversation[] = [
-    {
-        otherUserId: 1,
-        profilePicture: 101,
-        firstName: "Alice",
-        lastName: "Johnson"
-    },
-    {
-        otherUserId: 2,
-        profilePicture: 102,
-        firstName: "Bob",
-        lastName: "Smith"
-    },
-    {
-        otherUserId: 3,
-        profilePicture: 103,
-        firstName: "Carol",
-        lastName: "Martinez"
-    },
-    {
-        otherUserId: 4,
-        profilePicture: 104,
-        firstName: "David",
-        lastName: "Lee"
-    },
-    {
-        otherUserId: 5,
-        profilePicture: 105,
-        firstName: "Emma",
-        lastName: "Wilson"
-    }
-  ];
 
+  conversations: Conversation[] = [];
   messages: Message[] = [];
 
   currentUserId: number = 1;
@@ -78,18 +56,15 @@ export class MessagesComponent {
         content: this.messageToSend
     }
 
-    console.log(message)
-    //this.messages.push(message)
-    console.log("This happened after the error")
     this.store.dispatch(SendMessageActions.sendMessage({senderId: message.senderId, receiverId: message.receiverId, createdAt: message.createdAt, content: message.content}))
     this.messageToSend = ""
   }
 
-  getNewConversation(): void{
-
-  }
-
-  getOlderMessages(): void{
-
+  
+  changeConversation(id: number){
+    this.store.dispatch(GetMessageActions.getMessages({senderId: this.currentUserId, receiverId: this.otherUserId}))
+    this.messages$?.subscribe(messages => {
+      this.messages = messages
+    })
   }
 }

@@ -70,7 +70,6 @@ export class UserEffects {
         exhaustMap((action: any) => 
             this.messageService.retrieveMessages(action.senderId, action.receiverId).pipe(
                 map((response: GetMessagesResponse) => {
-                    console.log(response);
                     return GetMessageActions.getMessagesSuccess({messages: response.messages});
                 }),
                 catchError((error) => of(GetMessageActions.getMessagesError({error: error})))

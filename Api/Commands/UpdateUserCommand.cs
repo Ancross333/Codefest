@@ -29,6 +29,6 @@ namespace Api.Commands
 
     public record UpdateUserDto
     {
-        public User User { get; set; }
+        public int Id { get; set; }
     }
 }

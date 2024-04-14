@@ -54,7 +54,7 @@ namespace Infrastructure.Repos
 			await _dbContext.SaveChangesAsync();
 		}
 
-        public async Task<User> GetAsync(string email, string password)
+        public async Task<User?> GetAsync(string email, string password)
         {
             // Retrieve the user by email only
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -67,6 +67,11 @@ namespace Infrastructure.Repos
 
             return null;
         }
+
+		public bool EmailExists(string email)
+		{
+			return _dbContext.Users.Any(user => user.Email == email);
+		}
 
 
         public async Task UpdateAsync(int id, string email, string companyName, string firstName, string lastName, Zip zip, AccountType accountType, ProfilePicture profilePicture)
